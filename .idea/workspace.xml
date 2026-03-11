@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8ef65515-3b18-4190-88cc-9a951f390f13" name="Changes" comment="Created Project">
-      <change afterPath="$PROJECT_DIR$/utils.py" afterDir="false" />
+    <list default="true" id="8ef65515-3b18-4190-88cc-9a951f390f13" name="Changes" comment="Created get_vectors function to get heliocentric state vectors">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,10 +37,16 @@
     "Python.3i atlas horizons.executor": "Run",
     "Python.3i_atlas_horizons.executor": "Run",
     "Python.3i_atlas_quicktest.executor": "Run",
+    "Python.utils.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Angelo\Desktop\Computational\cache" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -65,11 +71,20 @@
       <option name="project" value="LOCAL" />
       <updated>1773190638239</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Created get_vectors function to get heliocentric state vectors">
+      <option name="closed" value="true" />
+      <created>1773198783743</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1773198783743</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Created Project" />
-    <option name="LAST_COMMIT_MESSAGE" value="Created Project" />
+    <MESSAGE value="Created get_vectors function to get heliocentric state vectors" />
+    <option name="LAST_COMMIT_MESSAGE" value="Created get_vectors function to get heliocentric state vectors" />
   </component>
 </project>

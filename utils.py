@@ -2,19 +2,18 @@ from astroquery.jplhorizons import Horizons
 import os
 import pandas as pd
 
-CACHE_DIR = "cache"
-
 # Function to get vectors of a target object
 def get_vectors(target_id, start, stop, step, centre="500@10"):
-    os.makedirs(CACHE_DIR, exist_ok=True)
+    cache_dir = "cache"
+    os.makedirs(cache_dir, exist_ok=True)
 
     # Creating unique name for cache
     filename = f"cache_{target_id}_{start}_{stop}_{step}_{centre}.csv"
     filename = filename.replace("/", "-").replace("@", "_")  # safe filename
-    filepath = os.path.join(CACHE_DIR, filename)
+    filepath = os.path.join(cache_dir, filename)
 
-    if os.path.exists(filename):
-        df = pd.read_csv(filename)
+    if os.path.exists(filepath):
+        df = pd.read_csv(filepath)
 
     else:
         # Fetching data
@@ -29,8 +28,9 @@ def get_vectors(target_id, start, stop, step, centre="500@10"):
         df = obj.vectors().to_pandas()
 
         # Caching data
-        df.to_csv(filename, index=False)
+        df.to_csv(filepath, index=False)
 
+    # Add extra datetime column as fetched data does not have this
     df["datetime"] = pd.to_datetime(
         df["datetime_str"].str.replace("A.D. ", "", regex=False),
         format="%Y-%b-%d %H:%M:%S.%f"
