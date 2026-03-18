@@ -36,3 +36,12 @@ def get_vectors(target_id, start, stop, step, centre="500@10"):
         format="%Y-%b-%d %H:%M:%S.%f"
     )
     return df
+
+def get_vectors_for_3i_from(centre):
+    df_approach = get_vectors("3I", "2023-04-01", "2025-04-01", "30d", centre)
+
+    df_inner = get_vectors("3I", "2025-04-01", "2026-04-01", "1d", centre)
+
+    df_outer = get_vectors("3I", "2026-04-01", "2035-04-01", "7d", centre)
+
+    return pd.concat([df_approach, df_inner, df_outer]).drop_duplicates("datetime_jd")

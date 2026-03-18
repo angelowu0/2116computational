@@ -1,7 +1,7 @@
 import os
 import pandas as pd
 import matplotlib.pyplot as plt
-from utils import get_vectors
+from utils import get_vectors, get_vectors_for_3i_from
 import numpy as np
 
 # Part 1 - Get the vectors of the comet
@@ -16,24 +16,79 @@ df_comet = pd.concat([df_approach, df_inner, df_outer])
 
 df_inner["v_kms"] = np.sqrt(df_inner.vx**2 + df_inner.vy**2 + df_inner.vz**2) * 1731.46
 
-print(df_comet.columns)
-fig, (ax1, ax2) = plt.subplots(1,2, figsize=(12,8))    # create a figure with one set of axes
+from plotly.subplots import make_subplots
+import plotly.graph_objects as go
 
-ax1.plot(df_comet["datetime"], df_comet["range"])               # draw on those axes
-ax1.set_title("Comet 3I Distance From Sun 2024-2034")
-ax1.set_xlabel("Datetime")
-ax1.set_ylabel("Distance From Sun (AU)")
+PLANETS = {
+    "Sun":     "10",
+    "Earth":   "399",
+    "Mars":    "499",
+    "Jupiter": "599",
+    "Saturn":  "699",
+}
 
-ax2.plot(df_inner["datetime"], df_inner["range"])               # draw on those axes
-ax2.set_title("Comet 3I Distance From Sun 2025/4/1-2026/4/1")
-ax2.set_xlabel("Datetime")
-ax2.set_ylabel("Distance From Sun (AU)")
+COLOURS = {
+    "Sun":     "green",
+    "Earth":   "skyblue",
+    "Mars":    "red",
+    "Jupiter": "orange",
+    "Saturn":  "gold",
+}
 
-fig1, ax3 = plt.subplots()
-ax3.plot(df_inner["datetime"], df_inner["v_kms"])               # draw on those axes
-ax3.set_title("Comet 3I Velocity Relative to Sun 2025/4/1-2026/4/1")
-ax3.set_xlabel("Datetime")
-ax3.set_ylabel("Velocity Relative to Sun (km/s)")
+fig = go.Figure()
+
+for i, (name, pid) in enumerate(PLANETS.items(), start=1):
+    df_planet = get_vectors_for_3i_from(f"500@{pid}")
+    df_planet = df_planet.reset_index(drop=True)
+
+    idx_min = df_planet["range"].idxmin()
+    closest_date = pd.Timestamp(df_planet.loc[idx_min, "datetime"])
+    closest_dist = df_planet.loc[idx_min, "range"]
+
+    date_start = closest_date - pd.DateOffset(months=16)
+    date_end = closest_date + pd.DateOffset(months=16)
+
+    df_window = df_planet[
+        (df_planet["datetime"] >= date_start) &
+        (df_planet["datetime"] <= date_end)
+    ]
+
+
+    fig.add_trace(go.Scatter(
+        x=df_window["datetime"],
+        y=df_window["range"],
+        name=name,
+        line=dict(color=COLOURS.get(name, "white"))
+    ))
+
+    fig.add_trace(go.Scatter(
+        x=[closest_date],
+        y=[closest_dist],
+        mode="markers",
+        marker=dict(size=12, color="red", symbol="star"),
+        name="Closest approach"
+    ))
+
+    fig.update_layout(
+        title=f"3I/ATLAS - Closest Approach to {name} "
+              f"({closest_date.date()}, {closest_dist:.3f} AU)",
+        xaxis_title="Date",
+        yaxis_title="Distance (AU)",
+        height=1000
+    )
+
+    fig.update_xaxes(
+        range=["2025-01-01", "2026-07-01"]
+    )
+
+fig.show()
+
+# planet_dfs = {}
+# for name, pid in PLANETS.items():
+#     df_approach = get_vectors("3I", "2023-04-01", "2025-04-01", "30d", pid)
+#     df_inner = get_vectors("3I", "2025-04-01", "2026-04-01", "1d", pid)
+#     df_outer = get_vectors("3I", "2026-04-01", "2035-04-01", "7d", pid)
+#     planet_dfs[name] = pd.concat([df_approach, df_inner, df_outer]).drop_duplicates("datetime_jd")
 
 
 plt.show()
