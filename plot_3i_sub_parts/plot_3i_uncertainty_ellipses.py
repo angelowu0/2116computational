@@ -46,8 +46,8 @@ def plot_3i_uncertainty_ellipses():
             x=x_rot,
             y=y_rot,
             mode="lines",
-            name=f"{date} (SMAA={smaa:.4f}\")",
-            line=dict(color="cyan")
+            line=dict(color="cyan"),
+            showlegend = False
         ), row=i, col=1)
 
         # Centre dot at origin

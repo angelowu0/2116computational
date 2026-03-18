@@ -41,7 +41,7 @@ def plot_3i_orbit_around_planets():
             y=df_orbit["y"],
             z=df_orbit["z"],
             mode="lines",
-            line=dict(color=colour, width=20),
+            line=dict(color=colour, width=5),
             name=f"{name} orbit"
         ))
 

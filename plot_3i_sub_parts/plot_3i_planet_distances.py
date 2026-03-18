@@ -52,16 +52,15 @@ def plot_3i_planet_distances():
             name="Closest approach"
         ))
 
-        fig.update_layout(
-            title=f"3I/ATLAS - Closest Approach to {name} "
-                  f"({closest_date.date()}, {closest_dist:.3f} AU)",
-            xaxis_title="Date",
-            yaxis_title="Distance (AU)",
-            height=1000
-        )
+    fig.update_xaxes(
+        range=["2025-01-01", "2026-07-01"]
+    )
 
-        fig.update_xaxes(
-            range=["2025-01-01", "2026-07-01"]
-        )
+    fig.update_layout(
+        title=f"3I/ATLAS - Distances and Closest Approach from Planets and Sun",
+        xaxis_title="Date",
+        yaxis_title="Distance (AU)",
+        height=1000
+    )
 
     fig.show()
