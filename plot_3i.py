@@ -2,6 +2,7 @@ from plot_3i_sub_parts.plot_3i_planet_distances import plot_3i_planet_distances
 from plot_3i_sub_parts.plot_3i_uncertainties import plot_3i_uncertainties
 from plot_3i_sub_parts.plot_3i_uncertainty_ellipses import plot_3i_uncertainty_ellipses
 from plot_3i_sub_parts.plot_3i_orbit_around_planets import plot_3i_orbit_around_planets
+from plot_3i_sub_parts.plot_3i_observability import plot_3i_observability
 
 # Part 1 - Get the vectors of the comet
 plot_3i_planet_distances()
@@ -11,3 +12,5 @@ plot_3i_uncertainties()
 plot_3i_uncertainty_ellipses()
 
 plot_3i_orbit_around_planets()
+
+plot_3i_observability()
